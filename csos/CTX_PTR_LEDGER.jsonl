@@ -61,3 +61,5 @@
 
 {"id":"CTX_PTR:translation_pack_csos","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/TRANSLATION_PACK_CSOS.jsonl"},"evidence_tier":0,"notes":"Single-file translation pack that preserves hinge chains + perspective gates so agents can reload context even if the laptop disappears."}
 
+{"id":"CTX_PTR:context_layers_edge_invariant_protocol","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/CONTEXT_LAYERS_EDGE_INVARIANT_PROTOCOL.md"},"evidence_tier":0,"notes":"Defines the context layer ladder and the edge×invariant gating model (process = path; invariants = gates)."}
+
