@@ -1,0 +1,50 @@
+{"id":"CTX_PTR:edge_map_fortress_collapse","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/EDGE_MAP_Fortress_Collapse_Token_Saturation.md"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:token_saturation_is_core_failure_mode","type":"ATOMIC_CTX","derived_from":["CTX_PTR:edge_map_fortress_collapse"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"The core mapped failure mode is token saturation: correction tokens displace reference tokens, producing collapse dynamics."}
+{"id":"HINGE:maps:fortress_to_collapse","type":"HINGE","relation_type":"maps","from":"ATOMIC_CTX:token_saturation_is_core_failure_mode","to":"ATOMIC_CONCEPT:fortress_controls_can_induce_collapse_via_correction_overhead","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:fortress_controls_can_induce_collapse_via_correction_overhead","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"A control/guardrail strategy (Fortress) can create its own collapse by inflating correction overhead that saturates context."}
+
+{"id":"CTX_PTR:fast_plan_ripples","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/FAST_PLAN_INVARIANT_GRAPH_RIPPLES.md"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:time_is_conditional_not_decision_axis","type":"ATOMIC_CTX","derived_from":["CTX_PTR:fast_plan_ripples"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"Time is not a default decision layer; it is only used when explicitly tagged by user/live context, otherwise post-hoc only."}
+{"id":"HINGE:governs:decision_policy","type":"HINGE","relation_type":"governs","from":"ATOMIC_CTX:time_is_conditional_not_decision_axis","to":"ATOMIC_CONCEPT:avoid_time_priority_bias","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:avoid_time_priority_bias","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"Default prioritization must not use time; use evidence and relational context; time is a tagged lens only."}
+
+{"id":"CTX_PTR:invariant_graph","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/INVARIANT_GRAPH.mermaid"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:local_receipts_win_over_model_prior","type":"ATOMIC_CTX","derived_from":["CTX_PTR:invariant_graph"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"Local receipts (files/screenshots/logs) override model prior when conflicting."}
+{"id":"HINGE:enforces:anti_hallucination","type":"HINGE","relation_type":"enforces","from":"ATOMIC_CTX:local_receipts_win_over_model_prior","to":"ATOMIC_CONCEPT:governing_edges_require_receipts","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:governing_edges_require_receipts","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"No governing edge/claim is allowed without Tier 0–2 evidence; otherwise it must be PROVISIONAL with a receipt request."}
+
+{"id":"CTX_PTR:ctx_ptr_ledger","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/CTX_PTR_LEDGER.jsonl"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:ctx_ptrs_are_canonical_recheckable_locators","type":"ATOMIC_CTX","derived_from":["CTX_PTR:ctx_ptr_ledger"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"CTX_PTR entries function as canonical, re-checkable locators for evidence surfaces (files, images, URLs, logs)."}
+{"id":"HINGE:requires:alternation_chain","type":"HINGE","relation_type":"requires","from":"ATOMIC_CTX:ctx_ptrs_are_canonical_recheckable_locators","to":"ATOMIC_CONCEPT:hinge_chain_alternation_required","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:hinge_chain_alternation_required","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"Context must be traversable via strict alternation: CTX_PTR→ATOMIC_CTX→HINGE→ATOMIC_CONCEPT→… to prevent floating concepts."}
+
+{"id":"CTX_PTR:hinge_chain_ledger","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/HINGE_CHAIN_LEDGER.jsonl"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:hinge_chain_nodes_are_ledgered","type":"ATOMIC_CTX","derived_from":["CTX_PTR:hinge_chain_ledger"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"ATOMIC_CTX / HINGE / ATOMIC_CONCEPT nodes are stored append-only in HINGE_CHAIN_LEDGER.jsonl to make chains traversable beyond pointers."}
+{"id":"HINGE:fixes:untraversable_example","type":"HINGE","relation_type":"fixes","from":"ATOMIC_CTX:hinge_chain_nodes_are_ledgered","to":"ATOMIC_CONCEPT:chains_can_be_audited_end_to_end","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:chains_can_be_audited_end_to_end","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"With ledgered nodes, example chains in INVARIANT_GRAPH are auditable end-to-end (pointer→observation→hinge→concept)."}
+
+{"id":"CTX_PTR:docker_receipts_bundle","type":"CTX_PTR","target":{"kind":"folder","locator":"Downloads/_ByType/Docs/Receipts/"},"evidence_tier":0,"notes":"docker_*.txt receipts inside this folder (see CTX_PTR:docker_* entries in CTX_PTR_LEDGER.jsonl)."}
+{"id":"ATOMIC_CTX:docker_desktop_is_present","type":"ATOMIC_CTX","derived_from":["CTX_PTR:docker_version_receipt"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"Docker Desktop is installed and usable (docker version shows Server: Docker Desktop)."}
+{"id":"HINGE:enables:local_execution_receipts","type":"HINGE","relation_type":"enables","from":"ATOMIC_CTX:docker_desktop_is_present","to":"ATOMIC_CONCEPT:execution_can_be_receipt_backed_locally","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:execution_can_be_receipt_backed_locally","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"We can ground claims in local executable receipts (docker CLI outputs), not narrative."}
+
+{"id":"CTX_PTR:drive_snapshots","type":"CTX_PTR","target":{"kind":"folder","locator":"C:/Users/cardi/.cursor/browser-logs/"},"evidence_tier":1}
+{"id":"ATOMIC_CTX:drive_is_accessible_via_logged_in_browser_session","type":"ATOMIC_CTX","derived_from":["CTX_PTR:drive_home_snapshot_log"],"evidence_tier":1,"status":"EVIDENCE-backed","statement":"Google Drive UI was reachable via the browser tool; snapshots were captured as local evidence."}
+{"id":"HINGE:enables:remote_pointer_discovery","type":"HINGE","relation_type":"enables","from":"ATOMIC_CTX:drive_is_accessible_via_logged_in_browser_session","to":"ATOMIC_CONCEPT:drive_metadata_can_mint_stable_ctx_ptrs","status":"PROVISIONAL","receipt_request":"Extract Drive file/folder IDs from snapshot logs and mint CTX_PTR:URL or CTX_PTR:DRIVE_ID entries."}
+{"id":"ATOMIC_CONCEPT:drive_metadata_can_mint_stable_ctx_ptrs","type":"ATOMIC_CONCEPT","status":"PROVISIONAL","statement":"Drive search snapshot metadata can be promoted to stable ID-based context pointers (URL/DRIVE_ID)."}
+
+{"id":"CTX_PTR:browser_surfaces_receipts","type":"CTX_PTR","target":{"kind":"file","locator":"Downloads/_ByType/Docs/Receipts/browser_credential_surfaces.txt"},"evidence_tier":0}
+{"id":"ATOMIC_CTX:browser_profile_stores_exist_locally","type":"ATOMIC_CTX","derived_from":["CTX_PTR:browser_surfaces_receipts"],"evidence_tier":0,"status":"EVIDENCE-backed","statement":"Chrome/Edge profile databases (Login Data/History/Local State) exist locally; we recorded metadata only."}
+{"id":"HINGE:enables:auth_state_as_execution_enabler","type":"HINGE","relation_type":"enables","from":"ATOMIC_CTX:browser_profile_stores_exist_locally","to":"ATOMIC_CONCEPT:use_auth_state_without_exfiltrating_secrets","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:use_auth_state_without_exfiltrating_secrets","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"Treat logged-in state as an execution enabler and evidence surface; store only metadata receipts; never extract/decrypt secrets."}
+
+{"id":"CTX_PTR:claude_auth_block_snapshot","type":"CTX_PTR","target":{"kind":"file","locator":"C:/Users/cardi/.cursor/browser-logs/snapshot-2025-12-12T00-54-44-267Z.log"},"evidence_tier":1}
+{"id":"ATOMIC_CTX:claude_submission_was_blocked_by_interactive_login","type":"ATOMIC_CTX","derived_from":["CTX_PTR:claude_auth_block_snapshot"],"evidence_tier":1,"status":"EVIDENCE-backed","statement":"Claude browser attempt hit Google sign-in chooser, blocking automated submission."}
+{"id":"HINGE:forces:agent_queue_strategy","type":"HINGE","relation_type":"forces","from":"ATOMIC_CTX:claude_submission_was_blocked_by_interactive_login","to":"ATOMIC_CONCEPT:use_queued_agents_or_other_models_when_ui_blocks","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:use_queued_agents_or_other_models_when_ui_blocks","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"When an authenticated UI blocks automation, route via queued agents/other surfaces instead of claiming success."}
+
+{"id":"CTX_PTR:gemini_prompt_submitted","type":"CTX_PTR","target":{"kind":"file","locator":"C:/Users/cardi/.cursor/browser-logs/snapshot-2025-12-12T01-15-21-108Z.log"},"evidence_tier":1}
+{"id":"ATOMIC_CTX:gemini_recap_request_was_submitted","type":"ATOMIC_CTX","derived_from":["CTX_PTR:gemini_prompt_submitted"],"evidence_tier":1,"status":"EVIDENCE-backed","statement":"A receipts-first recap request was submitted to Gemini via browser tool."}
+{"id":"HINGE:requests:external_recap","type":"HINGE","relation_type":"requests","from":"ATOMIC_CTX:gemini_recap_request_was_submitted","to":"ATOMIC_CONCEPT:external_model_can_generate_recap_but_receipts_win","status":"EVIDENCE-backed"}
+{"id":"ATOMIC_CONCEPT:external_model_can_generate_recap_but_receipts_win","type":"ATOMIC_CONCEPT","status":"EVIDENCE-backed","statement":"Other models can help summarize, but their output is subordinate to local receipts and must be ingested as PROVISIONAL unless grounded."}
+

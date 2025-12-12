@@ -1,0 +1,114 @@
+graph TD
+  %% -------------------- Invariants --------------------
+  I0["Invariant: Structure (rules) prevents dissolution"]
+  I1["Invariant: Token Saturation (Fortress → Collapse)"]
+  I2["Invariant: Proof is a cost center (proportional receipts)"]
+  I3["Invariant: Time is conditional (not a decision axis)"]
+  I4["Invariant: Images-as-Evidence updates the graph"]
+  I5["Invariant: Model prior has a cutoff; local receipts win"]
+  I6["Invariant: No governing edge without evidence tier >= 0"]
+
+  %% Wave / Ripple / Structure frame
+  F0["Frame: Wave (continuity view)"]
+  F1["Frame: Ripple (discrete iteration)"]
+  F2["Frame: Structure (invariants)"]
+
+  F2 -->|is| I0
+  F1 -->|feeds| I0
+  F0 -->|view_of| I0
+
+  %% -------------------- Canon artifacts --------------------
+  A0["Doc: EDGE_MAP_Fortress_Collapse_Token_Saturation.md"]
+  A1["Doc: FAST_PLAN_INVARIANT_GRAPH_RIPPLES.md"]
+
+  A0 -->|supports| I1
+  A0 -->|supports| I3
+  A1 -->|supports| I0
+  A1 -->|supports| I4
+  A1 -->|supports| I5
+  A0 -->|supports| I6
+  A1 -->|supports| I6
+
+  %% -------------------- Evidence nodes (images/diagrams) --------------------
+  E1["E:IMG ai_orchestrator_flow.png"]
+  E2["E:MERMAID protocol_flow_map.mermaid"]
+  E3["E:MERMAID node_relationship_diagram.mermaid"]
+  E4["E:IMG IDE scripts tree screenshot (user-provided)"]
+
+  %% Evidence → claims
+  C1["Claim: Multi-phase orchestration + feedback loop"]
+  C2["Claim: Evidence/validation/registry loop creates receipt gravity"]
+  C3["Claim: Cross-platform registry + workflow layers"]
+  C4["Claim: Scripts mutate context (files/logs/browser/registry)"]
+
+  E1 -->|depicts| C1
+  E2 -->|depicts| C2
+  E3 -->|depicts| C3
+  E4 -->|depicts| C4
+
+  %% Claims → invariants
+  C1 -->|risks| I1
+  C2 -->|risks| I1
+  C2 -->|supports| I2
+  C3 -->|supports| I0
+  C4 -->|supports| I4
+
+  %% Epistemic boundary: model prior vs receipts
+  P0["Model prior (bounded knowledge)"]
+  R0["Local receipts (files/screenshots/logs)"]
+  P0 -->|bounded_by| I5
+  R0 -->|wins_over| P0
+  R0 -->|supports| I5
+
+  %% Evidence policy: no governing edges without evidence
+  EP0["Evidence Policy (tiers 0-4)"]
+  EP0 -->|enforces| I6
+  R0 -->|feeds| EP0
+
+  %% -------------------- Hinge Chain (Pointer ↔ Atomic Context ↔ Atomic Concept) --------------------
+  HC0["Spec: Hinge Chain (CTX_PTR → ATOMIC_CTX → HINGE → ATOMIC_CONCEPT → …)"]
+  I0 -->|requires| HC0
+  I6 -->|requires| HC0
+
+  %% Node types (abstract)
+  N0["CTX_PTR (context pointer)"]
+  N1["ATOMIC_CTX (atomic context)"]
+  N2["HINGE (bridge/gate)"]
+  N3["ATOMIC_CONCEPT (atomic concept)"]
+
+  HC0 -->|defines| N0
+  HC0 -->|defines| N1
+  HC0 -->|defines| N2
+  HC0 -->|defines| N3
+
+  %% Alternating chain (pattern)
+  N0 -->|grounds| N1
+  N1 -->|hinges_to| N2
+  N2 -->|yields| N3
+  N3 -->|instantiates| N2
+  N2 -->|yields| N1
+
+  %% Example: tie an existing evidence node into the chain
+  P1["CTX_PTR:ai_orchestrator_flow_png"]
+  AC1["ATOMIC_CTX:orchestrator_has_feedback_loop"]
+  H1["HINGE:feedback_gain_to_saturation_risk"]
+  K1["ATOMIC_CONCEPT:feedback_gain_increases_saturation_risk"]
+
+  E1 -->|points_to| P1
+  P1 -->|grounds| AC1
+  AC1 -->|hinges_to| H1
+  H1 -->|yields| K1
+  K1 -->|risks| I1
+
+  %% -------------------- Lens nodes (choose view = choose memory) --------------------
+  L0["Lens: IDE (scripts/runners/workspaces)"]
+  L1["Lens: Browser (tabs/CDP/agents/dashboards)"]
+  L2["Lens: Evidence (receipts/logs/screenshots)"]
+  L3["Lens: Governance (edges/overrides/drift)"]
+
+  L0 -->|selects_subgraph| C4
+  L1 -->|selects_subgraph| C1
+  L2 -->|selects_subgraph| C2
+  L3 -->|selects_subgraph| I1
+
+

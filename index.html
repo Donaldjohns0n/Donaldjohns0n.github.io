@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CSOS Hub</title>
+    <style>
+      :root {
+        --bg: #0b0f19;
+        --card: #121a2a;
+        --text: #e6eefc;
+        --muted: #9bb0d3;
+        --link: #8ab4ff;
+        --border: rgba(255,255,255,0.08);
+      }
+      body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background: var(--bg); color: var(--text); }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header { padding: 28px 20px; border-bottom: 1px solid var(--border); }
+      h1 { margin: 0 0 6px; font-size: 22px; }
+      p { margin: 8px 0; color: var(--muted); line-height: 1.4; }
+      .wrap { max-width: 980px; margin: 0 auto; }
+      .grid { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 18px 20px 28px; }
+      @media (min-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px; }
+      .card h2 { margin: 0 0 10px; font-size: 16px; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; }
+      .repo { display:flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--border); }
+      .repo:first-of-type { border-top: none; }
+      .repo .name { font-weight: 600; }
+      .repo .meta { color: var(--muted); font-size: 12px; }
+      .pill { display:inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+      .row { display:flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+      .small { font-size: 12px; color: var(--muted); }
+      .error { color: #ffb4b4; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1>CSOS Hub</h1>
+        <p>
+          This page is a lightweight index for the CSOS ecosystem: a single Translation Pack entry point + a live list of GitHub repos.
+        </p>
+        <div class="row">
+          <span class="pill">Perspective-gated hinge chains</span>
+          <span class="pill">Receipts-first</span>
+          <span class="pill">No floating concepts</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="grid">
+        <section class="card">
+          <h2>Single entry point</h2>
+          <p>
+            Start here (one file): <a href="./csos/TRANSLATION_PACK_CSOS.jsonl">TRANSLATION_PACK_CSOS.jsonl</a>
+          </p>
+          <p class="small">
+            Folder: <span class="mono">csos/</span> — includes supporting canon docs copied from the laptop so the pack has a stable GitHub home.
+          </p>
+          <div class="row">
+            <a class="pill" href="./csos/README.md">README</a>
+            <a class="pill" href="./csos/CTX_PTR_LEDGER.jsonl">CTX_PTR_LEDGER</a>
+            <a class="pill" href="./csos/HINGE_CHAIN_LEDGER.jsonl">HINGE_CHAIN_LEDGER</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>How this page works</h2>
+          <p>
+            It fetches public repos for the GitHub user inferred from local remotes:
+            <span class="mono" id="gh-user">Donaldjohns0n</span>.
+          </p>
+          <p class="small">
+            Note: GitHub Pages cannot list private repos without a token; this page intentionally uses the unauthenticated GitHub API.
+          </p>
+          <p id="status" class="small">Loading…</p>
+        </section>
+      </div>
+
+      <section class="card" style="margin: 0 20px 28px;">
+        <h2>Repositories</h2>
+        <div id="repos"></div>
+        <p class="small" style="margin-top: 12px;">
+          If the API is rate-limited, refresh later or use the GitHub profile page directly.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const GH_USER = "Donaldjohns0n";
+      const statusEl = document.getElementById("status");
+      const reposEl = document.getElementById("repos");
+      const userEl = document.getElementById("gh-user");
+      userEl.textContent = GH_USER;
+
+      function formatDate(iso) {
+        try { return new Date(iso).toISOString().slice(0, 10); } catch { return iso || ""; }
+      }
+
+      function repoRow(repo) {
+        const div = document.createElement("div");
+        div.className = "repo";
+        const left = document.createElement("div");
+        const right = document.createElement("div");
+        right.className = "meta";
+        left.innerHTML = `<div class="name"><a href="${repo.html_url}">${repo.name}</a></div>` +
+          (repo.description ? `<div class="meta">${repo.description}</div>` : `<div class="meta">—</div>`);
+        right.textContent = `★ ${repo.stargazers_count} · updated ${formatDate(repo.updated_at)}`;
+        div.appendChild(left);
+        div.appendChild(right);
+        return div;
+      }
+
+      async function loadAllRepos() {
+        const perPage = 100;
+        let page = 1;
+        let all = [];
+        while (true) {
+          const url = `https://api.github.com/users/${GH_USER}/repos?per_page=${perPage}&page=${page}&sort=updated`;
+          const resp = await fetch(url, { headers: { "Accept": "application/vnd.github+json" } });
+          if (!resp.ok) throw new Error(`GitHub API ${resp.status}`);
+          const batch = await resp.json();
+          all = all.concat(batch);
+          if (!Array.isArray(batch) || batch.length < perPage) break;
+          page += 1;
+          if (page > 10) break; // safety
+        }
+        return all;
+      }
+
+      (async () => {
+        try {
+          statusEl.textContent = "Loading repos from GitHub API…";
+          const repos = await loadAllRepos();
+          repos.sort((a, b) => (b.stargazers_count - a.stargazers_count) || (b.updated_at || "").localeCompare(a.updated_at || ""));
+          reposEl.innerHTML = "";
+          repos.forEach(r => reposEl.appendChild(repoRow(r)));
+          statusEl.textContent = `Loaded ${repos.length} repos.`;
+        } catch (e) {
+          statusEl.innerHTML = `<span class="error">Failed to load repos: ${String(e.message || e)}</span>`;
+          reposEl.innerHTML = `<div class="small">Open your profile: <a href="https://github.com/${GH_USER}">https://github.com/${GH_USER}</a></div>`;
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+
